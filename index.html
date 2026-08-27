@@ -97,7 +97,7 @@
 </div>
 
 <script>
-  const API_URL = "COLE_AQUI_A_URL_DO_APPS_SCRIPT";
+  const API_URL = "https://script.google.com/macros/s/AKfycby2BbuZJFtAgU1immXSYNhTYhazEWZ9-CKPohsbzNyw-3btjmKb82RkVZcRwAoKGapLDQ/exec";
 
   function normalizarStatus(v) {
     return String(v || "").trim().toLowerCase()
@@ -113,12 +113,6 @@
 
   async function carregar() {
     const aviso = document.getElementById("apiAviso");
-    if (!API_URL.startsWith("https://script.google.com/")) {
-      document.getElementById("numeros").innerHTML = '<div class="loading">Integração aguardando a URL final do Apps Script.</div>';
-      aviso.style.display="block";
-      aviso.textContent="Falta apenas inserir no site o endereço /exec do Apps Script da planilha correta.";
-      return;
-    }
     try {
       const r = await fetch(API_URL, {cache:"no-store"});
       if (!r.ok) throw new Error("Falha HTTP "+r.status);
@@ -127,6 +121,7 @@
       const itens = dados.numeros || [];
       const box = document.getElementById("numeros");
       box.innerHTML = "";
+      aviso.style.display="none";
       let c = {disponivel:0,reservado:0,pago:0};
       itens.forEach(item => {
         const numero = pegar(item,["Número","Numero","número","numero"]);
