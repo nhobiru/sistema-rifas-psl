@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#09265f" />
+  <title>RIFA-0001 • Dia das Crianças</title>
+  <style>
+    :root {
+      --azul:#08245c; --azul2:#0f4ca6; --claro:#f5f8ff; --texto:#15213b;
+      --verde:#27c66b; --amarelo:#ffcf42; --cinza:#eef2f8; --borda:#dbe4f1;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:linear-gradient(180deg,#edf4ff,#fff 45%);color:var(--texto)}
+    .wrap{max-width:980px;margin:auto;padding:16px}
+    .hero{background:linear-gradient(135deg,#071d49,#1259b8);color:white;border-radius:28px;padding:24px;box-shadow:0 18px 50px #08245c28}
+    .clubs{display:flex;align-items:center;justify-content:center;gap:18px}
+    .clubs img{width:112px;height:112px;object-fit:contain;background:white;border-radius:24px;padding:7px;box-shadow:0 8px 24px #0003}
+    .hero h1{font-size:clamp(28px,6vw,48px);line-height:1;margin:20px 0 8px;text-align:center}
+    .hero p{text-align:center;margin:6px 0;opacity:.94}
+    .tag{display:inline-block;padding:7px 12px;border-radius:999px;background:#ffffff1c;border:1px solid #ffffff35;font-weight:800}
+    .center{text-align:center}
+    .grid{display:grid;grid-template-columns:1.15fr .85fr;gap:16px;margin-top:16px}
+    .card{background:white;border:1px solid var(--borda);border-radius:24px;padding:20px;box-shadow:0 10px 30px #08245c12}
+    h2{margin:0 0 14px;font-size:22px}
+    .premio{font-size:25px;font-weight:900;line-height:1.2}
+    .premio small{display:block;font-size:15px;font-weight:600;color:#61708d;margin-top:7px}
+    .pix{background:linear-gradient(145deg,#effcf7,#fff);border:2px solid #ccefe0}
+    .pix-key{font-size:20px;font-weight:900;word-break:break-all;margin:8px 0 14px}
+    button,.btn{border:0;border-radius:14px;padding:13px 16px;font-size:15px;font-weight:800;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:8px}
+    .btn-primary{background:var(--azul2);color:white}
+    .btn-whatsapp{background:#18a957;color:white;width:100%;margin-top:10px}
+    .statusbar{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:16px 0}
+    .status{border-radius:16px;padding:12px;text-align:center;font-weight:800;border:1px solid var(--borda)}
+    .status strong{display:block;font-size:22px}
+    .numbers{display:grid;grid-template-columns:repeat(10,1fr);gap:8px}
+    .num{aspect-ratio:1;border-radius:12px;display:flex;align-items:center;justify-content:center;font-weight:900;border:2px solid var(--borda);background:white;position:relative}
+    .num.pago{background:var(--verde);border-color:#18a95a;color:#07351d}
+    .num.reservado{background:var(--amarelo);border-color:#e3ac00;color:#4a3500}
+    .num.disponivel{background:#fff}
+    .legend{display:flex;flex-wrap:wrap;gap:12px;margin:12px 0 18px;font-size:14px}
+    .dot{width:12px;height:12px;border-radius:4px;display:inline-block;margin-right:5px;vertical-align:-1px}
+    .notice{padding:11px 14px;border-radius:14px;background:#fff6d8;border:1px solid #f0d36a;font-size:14px;margin-top:12px}
+    .footer{text-align:center;color:#71809c;font-size:13px;padding:24px 8px 10px}
+    .loading{grid-column:1/-1;padding:24px;text-align:center;color:#61708d}
+    @media(max-width:760px){.grid{grid-template-columns:1fr}.numbers{grid-template-columns:repeat(5,1fr)}.clubs img{width:86px;height:86px}}
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <section class="hero">
+    <div class="clubs">
+      <div style="width:112px;height:112px;background:#fff;border-radius:24px;display:grid;place-items:center;font-weight:900;color:#08245c;text-align:center;padding:8px">PARQUE<br>SÃO LUIZ</div>
+      <div style="width:112px;height:112px;background:#fff;border-radius:24px;display:grid;place-items:center;font-weight:900;color:#222;text-align:center;padding:8px">VILA<br>NOGUEIRA</div>
+    </div>
+    <div class="center"><span class="tag">RIFA-0001</span></div>
+    <h1>Rifa Solidária • Dia das Crianças</h1>
+    <p>Associação Atlética Parque São Luiz + Vila Nogueira</p>
+    <p><strong>11/10/2026 • Campo do Parque São Luiz</strong></p>
+  </section>
+
+  <div class="grid">
+    <section class="card">
+      <h2>🎁 Prêmio</h2>
+      <div class="premio">1 Perfume Malbec <small>ou R$ 150,00 via Pix</small></div>
+      <p><strong>R$ 10,00 por número</strong></p>
+      <div class="notice">O sorteio será realizado após o encerramento da rifa.</div>
+    </section>
+
+    <section class="card pix">
+      <h2>💠 Pagamento via Pix</h2>
+      <div>Chave Pix (e-mail)</div>
+      <div class="pix-key">pslamador@gmail.com</div>
+      <div>Mercado Pago</div>
+      <button class="btn-primary" style="width:100%;margin-top:14px" onclick="copiarPix()">Copiar chave Pix</button>
+      <a class="btn btn-whatsapp" href="https://wa.me/5512974018010?text=Olá!%20Quero%20participar%20da%20RIFA-0001%20do%20Dia%20das%20Crianças." target="_blank" rel="noopener">Falar no WhatsApp</a>
+    </section>
+  </div>
+
+  <section class="card" style="margin-top:16px">
+    <h2>Escolha seu número</h2>
+    <div class="statusbar">
+      <div class="status"><strong id="disponiveis">—</strong>Disponíveis</div>
+      <div class="status"><strong id="reservados">—</strong>Reservados</div>
+      <div class="status"><strong id="pagos">—</strong>Pagos</div>
+    </div>
+    <div class="legend">
+      <span><i class="dot" style="background:#fff;border:1px solid #ccd6e4"></i>Disponível</span>
+      <span><i class="dot" style="background:var(--amarelo)"></i>Reservado</span>
+      <span><i class="dot" style="background:var(--verde)"></i>Pago</span>
+    </div>
+    <div class="numbers" id="numeros"><div class="loading">Carregando números...</div></div>
+    <div id="apiAviso" class="notice" style="display:none"></div>
+  </section>
+
+  <div class="footer">Sistema de Rifas PSL • RIFA-0001</div>
+</div>
+
+<script>
+  const API_URL = "COLE_AQUI_A_URL_DO_APPS_SCRIPT";
+
+  function normalizarStatus(v) {
+    return String(v || "").trim().toLowerCase()
+      .normalize("NFD").replace(/[\u0300-\u036f]/g,"");
+  }
+
+  function pegar(obj, nomes) {
+    for (const nome of nomes) {
+      if (Object.prototype.hasOwnProperty.call(obj,nome)) return obj[nome];
+    }
+    return "";
+  }
+
+  async function carregar() {
+    const aviso = document.getElementById("apiAviso");
+    if (!API_URL.startsWith("https://script.google.com/")) {
+      document.getElementById("numeros").innerHTML = '<div class="loading">Integração aguardando a URL final do Apps Script.</div>';
+      aviso.style.display="block";
+      aviso.textContent="Falta apenas inserir no site o endereço /exec do Apps Script da planilha correta.";
+      return;
+    }
+    try {
+      const r = await fetch(API_URL, {cache:"no-store"});
+      if (!r.ok) throw new Error("Falha HTTP "+r.status);
+      const dados = await r.json();
+      if (!dados.sucesso) throw new Error(dados.erro || "A API retornou erro.");
+      const itens = dados.numeros || [];
+      const box = document.getElementById("numeros");
+      box.innerHTML = "";
+      let c = {disponivel:0,reservado:0,pago:0};
+      itens.forEach(item => {
+        const numero = pegar(item,["Número","Numero","número","numero"]);
+        const st = normalizarStatus(pegar(item,["Status","status"]));
+        const classe = st.includes("pago") ? "pago" : st.includes("reserv") ? "reservado" : "disponivel";
+        c[classe]++;
+        const el = document.createElement("div");
+        el.className = "num "+classe;
+        el.textContent = String(numero).padStart(2,"0");
+        el.title = classe==="pago" ? "Pago" : classe==="reservado" ? "Reservado" : "Disponível";
+        box.appendChild(el);
+      });
+      document.getElementById("disponiveis").textContent=c.disponivel;
+      document.getElementById("reservados").textContent=c.reservado;
+      document.getElementById("pagos").textContent=c.pago;
+    } catch(e) {
+      document.getElementById("numeros").innerHTML='<div class="loading">Não foi possível carregar os números.</div>';
+      aviso.style.display="block";
+      aviso.textContent="Erro de integração: "+e.message;
+    }
+  }
+
+  function copiarPix() {
+    navigator.clipboard.writeText("pslamador@gmail.com")
+      .then(()=>alert("Chave Pix copiada!"))
+      .catch(()=>prompt("Copie a chave Pix:", "pslamador@gmail.com"));
+  }
+
+  carregar();
+  setInterval(carregar, 30000);
+</script>
+</body>
+</html>
