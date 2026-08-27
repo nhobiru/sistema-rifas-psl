@@ -1,288 +1,36 @@
 <!doctype html>
 <html lang="pt-BR">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#09265f" />
-  <title>RIFA-0001 • Dia das Crianças</title>
-  <style>
-    :root{
-      --azul:#08245c;--azul2:#155fc8;--texto:#12203d;--verde:#28c76f;--verde2:#149e56;
-      --amarelo:#ffca3a;--cinza:#eef3f9;--borda:#d7e1ef;--branco:#fff;--vermelho:#d93a45;
-    }
-    *{box-sizing:border-box}
-    body{margin:0;font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:linear-gradient(180deg,#edf4ff 0,#fff 50%);color:var(--texto)}
-    .wrap{max-width:980px;margin:auto;padding:16px 16px 120px}
-    .hero{background:linear-gradient(135deg,#071d49,#155fc8);color:white;border-radius:28px;padding:24px;box-shadow:0 18px 50px #08245c28;text-align:center}
-    .clubs{display:flex;align-items:center;justify-content:center;gap:14px;margin-bottom:10px}
-    .club-badge{width:112px;height:112px;background:#fff;border-radius:24px;display:grid;place-items:center;padding:10px;font-weight:900;text-align:center;box-shadow:0 8px 24px #0003}
-    .club-badge.psl{color:var(--azul)}
-    .club-badge.vila{color:#222}
-    .tag{display:inline-block;padding:7px 12px;border-radius:999px;background:#ffffff1c;border:1px solid #ffffff35;font-weight:800}
-    .hero h1{font-size:clamp(28px,6vw,48px);line-height:1.05;margin:16px 0 8px}
-    .hero p{margin:5px 0;opacity:.95}
-    .grid{display:grid;grid-template-columns:1.05fr .95fr;gap:16px;margin-top:16px}
-    .card{background:#fff;border:1px solid var(--borda);border-radius:24px;padding:20px;box-shadow:0 10px 30px #08245c12}
-    h2{margin:0 0 14px;font-size:22px}
-    .premio{font-size:28px;font-weight:900;line-height:1.15}
-    .premio small{display:block;font-size:16px;font-weight:700;color:#65738d;margin-top:7px}
-    .pix{background:linear-gradient(145deg,#effcf7,#fff);border:2px solid #ccefe0}
-    .pix-key{font-size:20px;font-weight:900;word-break:break-all;margin:8px 0 6px}
-    .muted{color:#65738d;font-size:14px}
-    button,.btn{border:0;border-radius:14px;padding:13px 16px;font-size:15px;font-weight:800;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:8px}
-    .btn-primary{background:var(--azul2);color:white}
-    .btn-whatsapp{background:#18a957;color:white}
-    .btn-light{background:#eef4ff;color:var(--azul2);border:1px solid #cddbf1}
-    .btn-disabled{opacity:.5;cursor:not-allowed}
-    .full{width:100%}
-    .statusbar{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:16px 0}
-    .status{border-radius:16px;padding:12px;text-align:center;font-weight:800;border:1px solid var(--borda)}
-    .status strong{display:block;font-size:22px}
-    .legend{display:flex;flex-wrap:wrap;gap:12px;margin:12px 0 18px;font-size:14px}
-    .dot{width:12px;height:12px;border-radius:4px;display:inline-block;margin-right:5px;vertical-align:-1px}
-    .numbers{display:grid;grid-template-columns:repeat(10,1fr);gap:8px}
-    .num{aspect-ratio:1;border-radius:13px;display:flex;align-items:center;justify-content:center;font-weight:900;border:2px solid var(--borda);background:#fff;position:relative;transition:.15s transform,.15s box-shadow,.15s border-color;user-select:none}
-    .num.disponivel{cursor:pointer}
-    .num.disponivel:hover{transform:translateY(-2px);box-shadow:0 6px 16px #08245c16}
-    .num.selecionado{background:#dce9ff;border-color:var(--azul2);color:#07316a;box-shadow:0 0 0 3px #155fc822 inset}
-    .num.pago{background:var(--verde);border-color:var(--verde2);color:#07351d;cursor:not-allowed}
-    .num.reservado{background:var(--amarelo);border-color:#e3ac00;color:#4a3500;cursor:not-allowed}
-    .notice{padding:11px 14px;border-radius:14px;background:#fff6d8;border:1px solid #f0d36a;font-size:14px;margin-top:12px}
-    .notice.info{background:#eef5ff;border-color:#bdd1f0}
-    .loading{grid-column:1/-1;padding:24px;text-align:center;color:#61708d}
-    .footer{text-align:center;color:#71809c;font-size:13px;padding:24px 8px 10px}
-    .selection-bar{position:fixed;left:50%;bottom:14px;transform:translateX(-50%);width:min(920px,calc(100% - 24px));background:#0a2458;color:white;border-radius:22px;padding:14px;box-shadow:0 18px 50px #0004;display:none;z-index:40}
-    .selection-inner{display:flex;align-items:center;gap:12px;justify-content:space-between}
-    .selection-text strong{font-size:20px;display:block}
-    .selection-actions{display:flex;gap:8px}
-    dialog{border:0;border-radius:24px;padding:0;max-width:540px;width:calc(100% - 28px);box-shadow:0 30px 80px #0005}
-    dialog::backdrop{background:#061739aa;backdrop-filter:blur(3px)}
-    .modal{padding:22px}
-    .modal h3{margin:0 0 8px;font-size:24px}
-    .summary-box{background:#f4f8ff;border:1px solid var(--borda);border-radius:16px;padding:14px;margin:14px 0}
-    .summary-box strong{display:block;font-size:22px;margin-top:4px}
-    .modal-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
-    .steps{display:grid;gap:8px;margin:16px 0}
-    .step{display:flex;gap:10px;align-items:flex-start;padding:10px;border-radius:14px;background:#fafcff;border:1px solid var(--borda)}
-    .step b{min-width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:var(--azul2);color:white}
-    @media(max-width:760px){
-      .grid{grid-template-columns:1fr}.numbers{grid-template-columns:repeat(5,1fr)}
-      .club-badge{width:88px;height:88px;border-radius:20px}.selection-inner{align-items:flex-start;flex-direction:column}.selection-actions{width:100%}.selection-actions button{flex:1}
-    }
-  </style>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#09265f">
+<title>RIFA-0001 • Dia das Crianças</title>
+<style>
+:root{--azul:#08245c;--azul2:#155fc8;--texto:#12203d;--verde:#28c76f;--verde2:#149e56;--amarelo:#ffca3a;--borda:#d7e1ef}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;background:linear-gradient(180deg,#edf4ff,#fff 50%);color:var(--texto)}
+.wrap{max-width:980px;margin:auto;padding:16px 16px 120px}.hero{background:linear-gradient(135deg,#071d49,#155fc8);color:#fff;border-radius:28px;padding:24px;text-align:center;box-shadow:0 18px 50px #08245c28}.clubs{display:flex;justify-content:center;gap:14px}.club{width:110px;height:110px;background:#fff;border-radius:24px;display:grid;place-items:center;font-weight:900;text-align:center;padding:10px;box-shadow:0 8px 24px #0003}.club.psl{color:var(--azul)}.club.vila{color:#222}.tag{display:inline-block;margin-top:10px;padding:7px 12px;border-radius:999px;background:#ffffff1c;border:1px solid #ffffff35;font-weight:800}.hero h1{font-size:clamp(28px,6vw,48px);margin:16px 0 8px}.hero p{margin:5px 0}.grid{display:grid;grid-template-columns:1.05fr .95fr;gap:16px;margin-top:16px}.card{background:#fff;border:1px solid var(--borda);border-radius:24px;padding:20px;box-shadow:0 10px 30px #08245c12}.pix{background:linear-gradient(145deg,#effcf7,#fff);border:2px solid #ccefe0}.premio{font-size:28px;font-weight:900}.premio small{display:block;font-size:16px;color:#65738d;margin-top:7px}.pix-key{font-size:20px;font-weight:900;word-break:break-all;margin:8px 0}.muted{color:#65738d;font-size:14px}.notice{padding:11px 14px;border-radius:14px;background:#fff6d8;border:1px solid #f0d36a;font-size:14px;margin-top:12px}.statusbar{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:16px 0}.status{border-radius:16px;padding:12px;text-align:center;font-weight:800;border:1px solid var(--borda)}.status strong{display:block;font-size:22px}.legend{display:flex;flex-wrap:wrap;gap:12px;margin:12px 0 18px;font-size:14px}.dot{width:12px;height:12px;border-radius:4px;display:inline-block;margin-right:5px;vertical-align:-1px}.numbers{display:grid;grid-template-columns:repeat(10,1fr);gap:8px}.num{aspect-ratio:1;border-radius:13px;display:flex;align-items:center;justify-content:center;font-weight:900;border:2px solid var(--borda);background:#fff;user-select:none}.num.disponivel{cursor:pointer}.num.selecionado{background:#dce9ff;border-color:var(--azul2);color:#07316a}.num.pago{background:var(--verde);border-color:var(--verde2);color:#07351d}.num.reservado{background:var(--amarelo);border-color:#e3ac00;color:#4a3500}.selection-bar{position:fixed;left:50%;bottom:14px;transform:translateX(-50%);width:min(920px,calc(100% - 24px));background:#0a2458;color:white;border-radius:22px;padding:14px;box-shadow:0 18px 50px #0004;display:none;z-index:40}.selection-inner{display:flex;gap:12px;align-items:center;justify-content:space-between}.selection-text strong{font-size:20px;display:block}.actions{display:flex;gap:8px}button{border:0;border-radius:14px;padding:13px 16px;font-size:15px;font-weight:800;cursor:pointer}.primary{background:var(--azul2);color:#fff}.whatsapp{background:#18a957;color:#fff}.light{background:#eef4ff;color:var(--azul2);border:1px solid #cddbf1}.full{width:100%}button:disabled{opacity:.5;cursor:not-allowed}dialog{border:0;border-radius:24px;padding:0;max-width:540px;width:calc(100% - 28px);box-shadow:0 30px 80px #0005}dialog::backdrop{background:#061739aa;backdrop-filter:blur(3px)}.modal{padding:22px}.summary{background:#f4f8ff;border:1px solid var(--borda);border-radius:16px;padding:14px;margin:14px 0}.summary strong{display:block;font-size:22px;margin-top:4px}.verify{padding:10px 12px;border-radius:12px;margin:10px 0;font-weight:700;background:#eef5ff;border:1px solid #bdd1f0}.verify.ok{background:#eaf9f0;border-color:#a9e1bf;color:#126b37}.verify.err{background:#fff0f0;border-color:#efb0b0;color:#9d2020}.steps{display:grid;gap:8px;margin:14px 0}.step{display:flex;gap:10px;padding:10px;border:1px solid var(--borda);border-radius:14px}.step b{min-width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:var(--azul2);color:#fff}.modal-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}.footer{text-align:center;color:#71809c;font-size:13px;padding:24px 8px}
+@media(max-width:760px){.grid{grid-template-columns:1fr}.numbers{grid-template-columns:repeat(5,1fr)}.club{width:88px;height:88px}.selection-inner{align-items:flex-start;flex-direction:column}.actions{width:100%}.actions button{flex:1}}
+</style>
 </head>
 <body>
 <div class="wrap">
-  <section class="hero">
-    <div class="clubs">
-      <div class="club-badge psl">PARQUE<br>SÃO LUIZ</div>
-      <div class="club-badge vila">VILA<br>NOGUEIRA</div>
-    </div>
-    <span class="tag">RIFA-0001</span>
-    <h1>Rifa Solidária • Dia das Crianças</h1>
-    <p>Associação Atlética Parque São Luiz + Vila Nogueira</p>
-    <p><strong>11/10/2026 • Campo do Parque São Luiz</strong></p>
-  </section>
-
-  <div class="grid">
-    <section class="card">
-      <h2>🎁 Prêmio</h2>
-      <div class="premio">1 Perfume Malbec <small>ou R$ 150,00 via Pix</small></div>
-      <p><strong>R$ 10,00 por número</strong></p>
-      <div class="notice">O sorteio será realizado após o encerramento da rifa.</div>
-    </section>
-
-    <section class="card pix">
-      <h2>💠 Pagamento via Pix</h2>
-      <div class="muted">Você só precisa pagar depois de escolher os números.</div>
-      <div class="pix-key">pslamador@gmail.com</div>
-      <div>Mercado Pago</div>
-      <button class="btn-primary full" style="margin-top:14px" onclick="copiarPix()">Copiar chave Pix</button>
-    </section>
-  </div>
-
-  <section class="card" style="margin-top:16px">
-    <h2>Escolha seus números</h2>
-    <p class="muted">Toque em um ou mais números disponíveis. O total aparece automaticamente.</p>
-    <div class="statusbar">
-      <div class="status"><strong id="disponiveis">—</strong>Disponíveis</div>
-      <div class="status"><strong id="reservados">—</strong>Reservados</div>
-      <div class="status"><strong id="pagos">—</strong>Pagos</div>
-    </div>
-    <div class="legend">
-      <span><i class="dot" style="background:#fff;border:1px solid #ccd6e4"></i>Disponível</span>
-      <span><i class="dot" style="background:#dce9ff;border:1px solid #155fc8"></i>Selecionado</span>
-      <span><i class="dot" style="background:var(--amarelo)"></i>Reservado</span>
-      <span><i class="dot" style="background:var(--verde)"></i>Pago</span>
-    </div>
-    <div class="numbers" id="numeros"><div class="loading">Carregando números...</div></div>
-    <div id="apiAviso" class="notice" style="display:none"></div>
-  </section>
-
-  <div class="footer">Sistema de Rifas PSL • RIFA-0001</div>
-</div>
-
-<div class="selection-bar" id="selectionBar">
-  <div class="selection-inner">
-    <div class="selection-text">
-      <strong><span id="qtdSelecionados">0</span> selecionado(s) • R$ <span id="totalSelecionado">0,00</span></strong>
-      <span id="listaSelecionados">Nenhum número selecionado.</span>
-    </div>
-    <div class="selection-actions">
-      <button class="btn-light" onclick="limparSelecao()">Limpar</button>
-      <button class="btn-whatsapp" onclick="abrirPagamento()">Continuar</button>
-    </div>
-  </div>
-</div>
-
-<dialog id="pagamentoModal">
-  <div class="modal">
-    <h3>Finalizar seleção</h3>
-    <p class="muted">Confira os números antes de fazer o pagamento.</p>
-    <div class="summary-box">
-      Números: <span id="modalNumeros">—</span>
-      <strong>Total: R$ <span id="modalTotal">0,00</span></strong>
-    </div>
-    <div class="steps">
-      <div class="step"><b>1</b><div>Faça o Pix para <strong>pslamador@gmail.com</strong> (Mercado Pago).</div></div>
-      <div class="step"><b>2</b><div>Depois, toque em <strong>Enviar comprovante no WhatsApp</strong>.</div></div>
-      <div class="step"><b>3</b><div>Envie a foto ou PDF do comprovante na conversa. Os números só ficam confirmados após a conferência.</div></div>
-    </div>
-    <button class="btn-primary full" onclick="copiarPix()">Copiar chave Pix</button>
-    <button class="btn-whatsapp full" style="margin-top:10px" onclick="enviarWhatsApp()">Enviar comprovante no WhatsApp</button>
-    <div class="modal-actions">
-      <button class="btn-light" onclick="fecharPagamento()">Voltar</button>
-      <button class="btn-light" onclick="limparSelecao();fecharPagamento()">Cancelar seleção</button>
-    </div>
-  </div>
-</dialog>
-
+<section class="hero"><div class="clubs"><div class="club psl">PARQUE<br>SÃO LUIZ</div><div class="club vila">VILA<br>NOGUEIRA</div></div><span class="tag">RIFA-0001</span><h1>Rifa Solidária • Dia das Crianças</h1><p>Associação Atlética Parque São Luiz + Vila Nogueira</p><p><strong>11/10/2026 • Campo do Parque São Luiz</strong></p></section>
+<div class="grid"><section class="card"><h2>🎁 Prêmio</h2><div class="premio">1 Perfume Malbec <small>ou R$ 150,00 via Pix</small></div><p><strong>R$ 10,00 por número</strong></p><div class="notice">O sorteio será realizado após o encerramento da rifa.</div></section><section class="card pix"><h2>💠 Pagamento via Pix</h2><div class="muted">Você só precisa pagar depois de escolher os números.</div><div class="pix-key">pslamador@gmail.com</div><div>Mercado Pago</div><button class="primary full" style="margin-top:14px" onclick="copiarPix()">Copiar chave Pix</button></section></div>
+<section class="card" style="margin-top:16px"><h2>Escolha seus números</h2><p class="muted">Toque em um ou mais números disponíveis. O total aparece automaticamente.</p><div class="statusbar"><div class="status"><strong id="disponiveis">—</strong>Disponíveis</div><div class="status"><strong id="reservados">—</strong>Reservados</div><div class="status"><strong id="pagos">—</strong>Pagos</div></div><div class="legend"><span><i class="dot" style="background:#fff;border:1px solid #ccd6e4"></i>Disponível</span><span><i class="dot" style="background:#dce9ff;border:1px solid #155fc8"></i>Selecionado</span><span><i class="dot" style="background:var(--amarelo)"></i>Reservado</span><span><i class="dot" style="background:var(--verde)"></i>Pago</span></div><div class="numbers" id="numeros">Carregando...</div><div id="apiAviso" class="notice" style="display:none"></div></section>
+<div class="footer">Sistema de Rifas PSL • RIFA-0001</div></div>
+<div class="selection-bar" id="selectionBar"><div class="selection-inner"><div class="selection-text"><strong><span id="qtdSelecionados">0</span> selecionado(s) • R$ <span id="totalSelecionado">0,00</span></strong><span id="listaSelecionados"></span></div><div class="actions"><button class="light" onclick="limparSelecao()">Limpar</button><button class="whatsapp" onclick="abrirPagamento()">Continuar</button></div></div></div>
+<dialog id="pagamentoModal"><div class="modal"><h3>Finalizar seleção</h3><p class="muted">Confira os números antes de fazer o pagamento.</p><div class="summary">Números: <span id="modalNumeros">—</span><strong>Total: R$ <span id="modalTotal">0,00</span></strong></div><div id="verifyStatus" class="verify">Confirmando disponibilidade...</div><div class="steps"><div class="step"><b>1</b><div>Faça o Pix para <strong>pslamador@gmail.com</strong> (Mercado Pago).</div></div><div class="step"><b>2</b><div>Depois, toque em <strong>Enviar comprovante no WhatsApp</strong>.</div></div><div class="step"><b>3</b><div>Envie a foto ou PDF do comprovante. Os números só ficam confirmados após a conferência.</div></div></div><button id="copyBtn" class="primary full" onclick="copiarPix()" disabled>Copiar chave Pix</button><button id="waBtn" class="whatsapp full" style="margin-top:10px" onclick="enviarWhatsApp()" disabled>Enviar comprovante no WhatsApp</button><div class="modal-actions"><button class="light" onclick="fecharPagamento()">Voltar</button><button class="light" onclick="limparSelecao();fecharPagamento()">Cancelar seleção</button></div></div></dialog>
 <script>
-  const API_URL = "https://script.google.com/macros/s/AKfycby2BbuZJFtAgU1immXSYNhTYhazEWZ9-CKPohsbzNyw-3btjmKb82RkVZcRwAoKGapLDQ/exec";
-  const VALOR_NUMERO = 10;
-  const WHATSAPP = "5512974018010";
-  const selecionados = new Set();
-  let mapaStatus = new Map();
-
-  function normalizarStatus(v){
-    return String(v||"").trim().toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");
-  }
-  function pegar(obj,nomes){
-    for(const nome of nomes){if(Object.prototype.hasOwnProperty.call(obj,nome))return obj[nome]}
-    return "";
-  }
-  function formatarNumero(n){return String(n).padStart(2,"0")}
-  function formatarMoeda(v){return Number(v).toFixed(2).replace(".",",")}
-
-  function atualizarResumo(){
-    const arr=[...selecionados].sort((a,b)=>Number(a)-Number(b));
-    const qtd=arr.length;
-    const total=qtd*VALOR_NUMERO;
-    document.getElementById("qtdSelecionados").textContent=qtd;
-    document.getElementById("totalSelecionado").textContent=formatarMoeda(total);
-    document.getElementById("listaSelecionados").textContent=qtd?"Números: "+arr.map(formatarNumero).join(", "):"Nenhum número selecionado.";
-    document.getElementById("selectionBar").style.display=qtd?"block":"none";
-  }
-
-  function alternarNumero(numero,el){
-    const status=mapaStatus.get(String(numero));
-    if(status!=="disponivel")return;
-    const key=String(numero);
-    if(selecionados.has(key)){
-      selecionados.delete(key);el.classList.remove("selecionado");
-    }else{
-      selecionados.add(key);el.classList.add("selecionado");
-    }
-    atualizarResumo();
-  }
-
-  function limparSelecao(){
-    selecionados.clear();
-    document.querySelectorAll(".num.selecionado").forEach(el=>el.classList.remove("selecionado"));
-    atualizarResumo();
-  }
-
-  async function carregar(){
-    const aviso=document.getElementById("apiAviso");
-    try{
-      const r=await fetch(API_URL,{cache:"no-store"});
-      if(!r.ok)throw new Error("Falha HTTP "+r.status);
-      const dados=await r.json();
-      if(!dados.sucesso)throw new Error(dados.erro||"A API retornou erro.");
-      const itens=dados.numeros||[];
-      const box=document.getElementById("numeros");
-      box.innerHTML="";aviso.style.display="none";
-      mapaStatus=new Map();
-      let c={disponivel:0,reservado:0,pago:0};
-
-      itens.forEach(item=>{
-        const numero=pegar(item,["Número","Numero","número","numero"]);
-        const st=normalizarStatus(pegar(item,["Status","status"]));
-        const classe=st.includes("pago")?"pago":st.includes("reserv")?"reservado":"disponivel";
-        const key=String(numero);
-        mapaStatus.set(key,classe);
-        c[classe]++;
-
-        if(classe!=="disponivel"&&selecionados.has(key))selecionados.delete(key);
-
-        const el=document.createElement("div");
-        el.className="num "+classe+(selecionados.has(key)?" selecionado":"");
-        el.textContent=formatarNumero(numero);
-        el.title=classe==="pago"?"Pago":classe==="reservado"?"Reservado":"Disponível — toque para selecionar";
-        if(classe==="disponivel")el.addEventListener("click",()=>alternarNumero(numero,el));
-        box.appendChild(el);
-      });
-
-      document.getElementById("disponiveis").textContent=c.disponivel;
-      document.getElementById("reservados").textContent=c.reservado;
-      document.getElementById("pagos").textContent=c.pago;
-      atualizarResumo();
-    }catch(e){
-      document.getElementById("numeros").innerHTML='<div class="loading">Não foi possível carregar os números.</div>';
-      aviso.style.display="block";aviso.textContent="Erro de integração: "+e.message;
-    }
-  }
-
-  async function abrirPagamento(){
-    if(!selecionados.size)return;
-    await carregar();
-    const indisponiveis=[...selecionados].filter(n=>mapaStatus.get(n)!=="disponivel");
-    if(indisponiveis.length){
-      indisponiveis.forEach(n=>selecionados.delete(n));
-      atualizarResumo();
-      alert("Um ou mais números acabaram de ficar indisponíveis: "+indisponiveis.map(formatarNumero).join(", ")+". Escolha outro(s) número(s).");
-      return;
-    }
-    const arr=[...selecionados].sort((a,b)=>Number(a)-Number(b));
-    document.getElementById("modalNumeros").textContent=arr.map(formatarNumero).join(", ");
-    document.getElementById("modalTotal").textContent=formatarMoeda(arr.length*VALOR_NUMERO);
-    document.getElementById("pagamentoModal").showModal();
-  }
-
-  function fecharPagamento(){document.getElementById("pagamentoModal").close()}
-
-  function copiarPix(){
-    navigator.clipboard.writeText("pslamador@gmail.com")
-      .then(()=>alert("Chave Pix copiada!"))
-      .catch(()=>prompt("Copie a chave Pix:","pslamador@gmail.com"));
-  }
-
-  function enviarWhatsApp(){
-    const arr=[...selecionados].sort((a,b)=>Number(a)-Number(b));
-    if(!arr.length)return;
-    const total=arr.length*VALOR_NUMERO;
-    const msg=[
-      "Olá! Acabei de fazer o Pix da RIFA-0001 — Dia das Crianças.",
-      "Números escolhidos: "+arr.map(formatarNumero).join(", "),
-      "Quantidade: "+arr.length,
-      "Valor total: R$ "+formatarMoeda(total),
-      "Vou enviar o comprovante nesta conversa para confirmação."
-    ].join("\n");
-    window.open("https://wa.me/"+WHATSAPP+"?text="+encodeURIComponent(msg),"_blank","noopener");
-  }
-
-  carregar();
-  setInterval(carregar,30000);
+const API_URL="https://script.google.com/macros/s/AKfycby2BbuZJFtAgU1immXSYNhTYhazEWZ9-CKPohsbzNyw-3btjmKb82RkVZcRwAoKGapLDQ/exec",VALOR_NUMERO=10,WHATSAPP="5512974018010";const selecionados=new Set();let mapaStatus=new Map();
+const norm=v=>String(v||"").trim().toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");const pega=(o,ns)=>{for(const n of ns)if(Object.prototype.hasOwnProperty.call(o,n))return o[n];return""};const fnum=n=>String(n).padStart(2,"0"),fmoeda=v=>Number(v).toFixed(2).replace(".",",");
+function atualizarResumo(){const a=[...selecionados].sort((a,b)=>+a-+b),q=a.length;document.getElementById("qtdSelecionados").textContent=q;document.getElementById("totalSelecionado").textContent=fmoeda(q*VALOR_NUMERO);document.getElementById("listaSelecionados").textContent=q?"Números: "+a.map(fnum).join(", "):"";document.getElementById("selectionBar").style.display=q?"block":"none"}
+function alternar(n,el){const k=String(n);if(mapaStatus.get(k)!=="disponivel")return;if(selecionados.has(k)){selecionados.delete(k);el.classList.remove("selecionado")}else{selecionados.add(k);el.classList.add("selecionado")}atualizarResumo()}
+function limparSelecao(){selecionados.clear();document.querySelectorAll(".num.selecionado").forEach(e=>e.classList.remove("selecionado"));atualizarResumo()}
+async function obterDados(){const r=await fetch(API_URL,{cache:"no-store"});if(!r.ok)throw new Error("Falha HTTP "+r.status);const d=await r.json();if(!d.sucesso)throw new Error(d.erro||"Erro na planilha");return d.numeros||[]}
+function montarMapa(itens){const m=new Map();itens.forEach(i=>{const n=pega(i,["Número","Numero","número","numero"]),s=norm(pega(i,["Status","status"]));m.set(String(n),s.includes("pago")?"pago":s.includes("reserv")?"reservado":"disponivel")});return m}
+async function carregar(){const aviso=document.getElementById("apiAviso");try{const itens=await obterDados();mapaStatus=montarMapa(itens);let c={disponivel:0,reservado:0,pago:0};const box=document.getElementById("numeros");box.innerHTML="";itens.forEach(i=>{const n=pega(i,["Número","Numero","número","numero"]),k=String(n),cl=mapaStatus.get(k);c[cl]++;if(cl!=="disponivel")selecionados.delete(k);const el=document.createElement("div");el.className="num "+cl+(selecionados.has(k)?" selecionado":"");el.textContent=fnum(n);if(cl==="disponivel")el.onclick=()=>alternar(n,el);box.appendChild(el)});document.getElementById("disponiveis").textContent=c.disponivel;document.getElementById("reservados").textContent=c.reservado;document.getElementById("pagos").textContent=c.pago;aviso.style.display="none";atualizarResumo()}catch(e){aviso.style.display="block";aviso.textContent="Erro de integração: "+e.message}}
+function abrirPagamento(){if(!selecionados.size)return;const a=[...selecionados].sort((a,b)=>+a-+b);document.getElementById("modalNumeros").textContent=a.map(fnum).join(", ");document.getElementById("modalTotal").textContent=fmoeda(a.length*VALOR_NUMERO);const st=document.getElementById("verifyStatus");st.className="verify";st.textContent="Confirmando disponibilidade...";document.getElementById("copyBtn").disabled=true;document.getElementById("waBtn").disabled=true;document.getElementById("pagamentoModal").showModal();verificarDisponibilidade()}
+async function verificarDisponibilidade(){const st=document.getElementById("verifyStatus");try{const itens=await obterDados(),novo=montarMapa(itens),ind=[...selecionados].filter(n=>novo.get(n)!=="disponivel");mapaStatus=novo;if(ind.length){ind.forEach(n=>selecionados.delete(n));st.className="verify err";st.textContent="Atenção: estes números acabaram de ficar indisponíveis: "+ind.map(fnum).join(", ")+". Volte e escolha outros.";document.getElementById("copyBtn").disabled=true;document.getElementById("waBtn").disabled=true;atualizarResumo();carregar();return}st.className="verify ok";st.textContent="✓ Números disponíveis. Você já pode fazer o Pix.";document.getElementById("copyBtn").disabled=false;document.getElementById("waBtn").disabled=false}catch(e){st.className="verify err";st.textContent="Não foi possível confirmar agora. Tente novamente em alguns segundos."}}
+function fecharPagamento(){document.getElementById("pagamentoModal").close()}function copiarPix(){navigator.clipboard.writeText("pslamador@gmail.com").then(()=>alert("Chave Pix copiada!")).catch(()=>prompt("Copie a chave Pix:","pslamador@gmail.com"))}
+function enviarWhatsApp(){const a=[...selecionados].sort((a,b)=>+a-+b);if(!a.length)return;const total=a.length*VALOR_NUMERO,msg=["Olá! Acabei de fazer o Pix da RIFA-0001 — Dia das Crianças.","Números escolhidos: "+a.map(fnum).join(", "),"Quantidade: "+a.length,"Valor total: R$ "+fmoeda(total),"Vou enviar o comprovante nesta conversa para confirmação."].join("\n");window.open("https://wa.me/"+WHATSAPP+"?text="+encodeURIComponent(msg),"_blank","noopener")}
+carregar();setInterval(carregar,30000);
 </script>
-</body>
-</html>
+</body></html>
