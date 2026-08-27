@@ -1,0 +1,19 @@
+{
+  "name": "Rifa PSL",
+  "short_name": "Rifa PSL",
+  "description": "Sistema de Rifas da Associação Atlética Parque São Luiz",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#08245c",
+  "lang": "pt-BR",
+  "icons": [
+    {
+      "src": "assets/escudo-psl.webp",
+      "sizes": "any",
+      "type": "image/webp",
+      "purpose": "any maskable"
+    }
+  ]
+}
