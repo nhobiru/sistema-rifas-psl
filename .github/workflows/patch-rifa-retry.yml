@@ -1,0 +1,42 @@
+name: Corrigir carregamento RIFA-0001
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/patch-rifa-retry.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Aplicar tentativas automáticas no carregamento
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('rifa-0001.html')
+          s = p.read_text(encoding='utf-8')
+          old = '''async function obterDados(){const r=await fetch(API_URL,{cache:"no-store"});if(!r.ok)throw new Error("Falha HTTP "+r.status);const d=await r.json();if(!d.sucesso)throw new Error(d.erro||"Erro na planilha");return d.numeros||[]}'''
+          new = '''async function obterDados(){let ultimoErro=null;for(let tentativa=1;tentativa<=6;tentativa++){try{const separador=API_URL.includes("?")?"&":"?";const r=await fetch(API_URL+separador+"t="+Date.now(),{cache:"no-store"});if(!r.ok)throw new Error("Falha HTTP "+r.status);const d=await r.json();if(!d.sucesso)throw new Error(d.erro||"Erro na planilha");return d.numeros||[]}catch(e){ultimoErro=e;if(tentativa<6)await new Promise(resolve=>setTimeout(resolve,1000*tentativa))}}throw ultimoErro||new Error("Não foi possível carregar os números.")}'''
+          if old not in s:
+              print('Trecho já corrigido ou não encontrado; nada a alterar.')
+          else:
+              p.write_text(s.replace(old, new, 1), encoding='utf-8')
+              print('Correção aplicada.')
+          PY
+      - name: Salvar correção
+        run: |
+          if git diff --quiet; then
+            echo "Nenhuma alteração necessária."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add rifa-0001.html
+          git commit -m "Tenta novamente ao ocorrer falha temporária no Apps Script"
+          git push
