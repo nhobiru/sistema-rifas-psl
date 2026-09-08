@@ -1,4 +1,4 @@
-const CACHE='rifa-psl-v2';
+const CACHE='rifa-psl-v3';
 const APP_SHELL=['./','./index.html','./rifa-0001.html','./rifa-0002.html','./manifest.webmanifest','./assets/topo-rifa-completo.webp','./assets/arte-rifa-0002.webp','./assets/escudo-psl.webp','./assets/perfume-malbec.webp'];
 self.addEventListener('install',event=>{event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(APP_SHELL)));self.skipWaiting()});
 self.addEventListener('activate',event=>{event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k)))));self.clients.claim()});
