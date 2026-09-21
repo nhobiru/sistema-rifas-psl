@@ -1,4 +1,10 @@
 const RIFAS = {
+  'RIFA-0003': {
+    aba: 'Controle RIFA-0003',
+    valorNumero: 10,
+    descricao: 'RIFA-0003 — Chuteira Umbro ou R$ 200 em compras na Escolástico Esportes',
+    exigeTime: false
+  },
   'RIFA-0001': {
     aba: 'Controle',
     valorNumero: 10,
